@@ -3,15 +3,20 @@ src="$1"
 datadir="$2"
 out="$3"
 
+#Seems to Work If Run in ACS but Not From Parent Directories
+source ../../config.sh
+echo "$STATE"
+echo "$STATE_INITIAL"
+
 schema=$(basename $out)
 
 mkdir -p $out
 cp -r $src/* $out
 
 edir=$(echo $datadir/ | sed 's/\//\\\//g')
-grep 'group1/[em][0-9]*5tn' $out/import_sequences.sql | sed "s/'.*\/group1\//'"$edir"/g;s/COPY/\\\COPY/g" > $out/import_sequences_tn.sql
+grep 'group1/[em][0-9]*5"$STATE_INITIAL"' $out/import_sequences.sql | sed "s/'.*\/group1\//'"$edir"/g;s/COPY/\\\COPY/g" > $out/import_sequences_"$STATE_INITIAL".sql
 
-grep 'g[0-9]*5tn.txt' $out/import_geoheader.sql | head -n1 | sed "s/'.*\/\(g[0-9]*5tn.txt\)/'"$edir\\1"/g;s/COPY/\\\COPY/g" > $out/import_geoheader_tn.sql
+grep 'g[0-9]*5"$STATE_INITIAL".txt' $out/import_geoheader.sql | head -n1 | sed "s/'.*\/\(g[0-9]*5"$STATE_INITIAL".txt\)/'"$edir\\1"/g;s/COPY/\\\COPY/g" > $out/import_geoheader_"$STATE_INITIAL".sql
 
 echo "
 drop schema if exists $schema cascade;
@@ -20,8 +25,8 @@ SET search_path = $schema, public;
 \i $out/create_tmp_geoheader.sql
 \i $out/create_import_tables.sql
 \i $out/create_tmp_geoheader.sql
-\i $out/import_sequences_tn.sql
-\i $out/import_geoheader_tn.sql
+\i $out/import_sequences_"$STATE_INITIAL".sql
+\i $out/import_geoheader_"$STATE_INITIAL".sql
 \i $out/create_geoheader.sql
 \i $out/parse_tmp_geoheader.sql
 \i $out/store_by_tables.sql
@@ -47,7 +52,7 @@ sed -i.bak "s/JOIN .*/JOIN acs2009_5yr.geoheader g ON (lower(s.stusab)=lower(g.s
 sed -i.bak 's/tmp_seq/acs2009_5yr.tmp_seq/g' $out/import_sequences.sql
 
 # missing character encoding
-sed -i.bak 's/;/ WITH ENCODING '\'latin1\'';/g' $out/import_geoheader_tn.sql
+sed -i.bak 's/;/ WITH ENCODING '\'latin1\'';/g' $out/import_geoheader_"$STATE_INITIAL".sql
 
 # join using geoid
 sed -i.bak 's/USING (stusab, logrecno)/USING (geoid)/g' $out/view_stored_by_tables.sql

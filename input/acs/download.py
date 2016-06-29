@@ -1,14 +1,35 @@
 #! /usr/bin/python
 import pandas as pd
 import numpy as np
-import util
+#import util
 import sys
 
-def read_acs(table, columns, engine, offsets={0:{}}, years=range(2009, 2015)):
-    select = """
+#sys.path.append('../Python_Scripts/')
+sys.path.append('../..')
+
+from config import STATE
+from config import STATE_INITIAL
+from config import CITY_ID
+print (STATE, STATE_INITIAL, CITY_ID)
+
+
+#SQL Select Statement to Filter for Specified City
+statement = """
         select geoid, {fields} from acs{year}_5yr.{table}
-        where geoid ~ 'US47037'
-    """
+        where geoid ~ """+"'"+CITY_ID+"'"
+
+print (statement)
+
+def read_acs(table, columns, engine, offsets={0:{}}, years=range(2009, 2015)):
+    try:
+        select=statement
+    except:
+        print "Error: Statement"
+        select = """
+            select geoid, {fields} from acs{year}_5yr.{table}
+            where geoid ~ 'US47037'
+        """
+
     column_names = ['geoid']
     column_names.extend(columns.keys())
 
