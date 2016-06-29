@@ -1,0 +1,15 @@
+PROFILE:=nashville_profile
+%include $[PROFILE]
+
+psql()
+	psql -v ON_ERROR_STOP=1 -f $[INPUT] && touch $[OUTPUT]
+
+psql/nashville/build_directories_schemas <- build_directories_schemas.sh
+	bash $INPUT nashville && touch $OUTPUT
+
+
+%include input/Drakefile_acs
+
+
+ACS_PROFILE:=acs_profile
+%include $[ACS_PROFILE]

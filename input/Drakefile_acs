@@ -1,0 +1,47 @@
+;;; Drakefile for Inserting ACS Data into Postgres.
+
+wget_unzip()
+        mkdir -p $(dirname $OUTPUT0)
+        mkdir -p $(dirname $OUTPUT1)
+        wget --output-document="$OUTPUT0" "$URL"
+        unzip -o "$OUTPUT0" -d $(dirname $OUTPUT1)
+
+extract_shapefiles_fromzip()
+        DIRNAME=$(dirname $OUTPUT)
+        BASENAME=$(basename $OUTPUT | sed 's/.shp//')
+        unzip -joDD $INPUT */$BASENAME.* -d $DIRNAME
+
+import_shapefile()
+        BASENAME=$(basename $INPUT | sed 's/.shp//')
+        BASENAME_LOWERCASE=$(echo $BASENAME | tr -d ':' | tr [:upper:] [:lower:])
+        shp2pgsql -d -s 2274 $INPUT shapefiles."$BASENAME_LOWERCASE" | psql -q
+        touch $OUTPUT
+
+
+;;; ACS: American Community Survey Data
+; American Community Survey data gets imported into its own db
+ACS_PROFILE:=./acs_profile
+%include $[ACS_PROFILE]
+
+data/census-postgres/ <- [-timecheck]
+     git clone https://github.com/censusreporter/census-postgres.git $OUTPUT
+
+$(for y in {2009..2014}; do
+
+echo "URL=\"http://www2.census.gov/programs-surveys/acs/summary_file/"$y"/data/5_year_by_state/Tennessee_Tracts_Block_Groups_Only.zip\""
+echo "data/acs/acs"$y"_5yr.zip, data/acs/acs"$y"_5yr/g"$y"5tn.txt <- [-timecheck method:wget_unzip]"
+
+echo "input/acs/generated/acs"$y"_5yr/import.sql <- input/acs/census_postgres.sh, data/census-postgres/"
+echo "    \$INPUT0 \$INPUT1/acs"$y"_5yr/ data/acs/acs"$y"_5yr/ input/acs/generated/acs"$y"_5yr/"
+
+echo "psql/acs"$y"_5yr <- input/acs/generated/acs"$y"_5yr/import.sql, data/acs/acs"$y"_5yr/g"$y"5tn.txt [method:psql]"
+
+done)
+
+; selected acs variables copied to db via csv
+data/acs.csv <- input/acs/download.py, psql/acs2009_5yr, psql/acs2010_5yr, psql/acs2011_5yr, psql/acs2012_5yr, psql/acs2013_5yr
+    $INPUT $OUTPUT
+
+%include $[PROFILE]
+psql/acs <- input/acs/import.py, data/acs.csv
+    $INPUT $INPUT1 && touch $OUTPUT
