@@ -23,19 +23,19 @@ echo "Selected State and Location:"
 echo $state, $state_initial, $city_geoid
 
 #Write Python Script
-#rm config.py || :
-touch config.py || rm config.py
+rm config.py || :
+#touch config.py || rm config.py
 echo "#! /usr/bin/python" >> config.py
 echo "STATE = '`echo $state`'" >> config.py
 echo "STATE_INITIAL = '`echo $state_initial`'" >> config.py
 echo "CITY_ID = '`echo $city_geoid`'" >> config.py
 
 #Write Shell Script
-#rm config.sh || :
-touch config.sh || rm config.sh
+rm config.sh || :
+#touch config.sh || rm config.sh
 echo "#!/bin/bash" >> config.sh
-echo "STATE = `echo $state`" >> config.sh
-echo "STATE_INITIAL = `echo $state_initial`" >> config.sh
+echo "STATE=`echo $state`" >> config.sh
+echo "STATE_INITIAL=`echo $state_initial`" >> config.sh
 
 
 #Make Scripts Executable
