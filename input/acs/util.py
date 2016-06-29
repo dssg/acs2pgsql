@@ -11,7 +11,7 @@ from itertools import chain, product
 from datetime import datetime, timedelta, date
 from sklearn import preprocessing
 from scipy import stats
-from repoze.lru import lru_cache
+#from repoze.lru import lru_cache #Needed?
 
 # useful for finding number of days in an interval: (date1 - date2) /day
 day = np.timedelta64(1, 'D')
@@ -291,7 +291,7 @@ def set_dtypes(df, dtypes):
         if dtype is not None and df[column].dtype != dtype:
             df[column] = df[column].astype(dtype)
 
-@lru_cache(maxsize=500)
+#@lru_cache(maxsize=500)
 def read_file(filename):
     with open(filename) as f:
         return f.read()
