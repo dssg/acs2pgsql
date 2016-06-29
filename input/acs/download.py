@@ -1,7 +1,7 @@
 #! /usr/bin/python
 import pandas as pd
 import numpy as np
-from drain import util
+import util
 import sys
 
 def read_acs(table, columns, engine, offsets={0:{}}, years=range(2009, 2015)):
