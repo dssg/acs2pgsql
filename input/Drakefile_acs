@@ -20,10 +20,6 @@ import_shapefile()
         touch $OUTPUT
 
 
-; Import State Variables
-source ../config.sh
-echo "$STATE"
-echo "$STATE_INITIAL"
 
 
 ;;; ACS: American Community Survey Data
@@ -35,6 +31,11 @@ data/census-postgres/ <- [-timecheck]
      git clone https://github.com/censusreporter/census-postgres.git $OUTPUT
 
 $(for y in {2009..2014}; do
+
+
+
+source config.sh
+
 
 echo "URL=\"http://www2.census.gov/programs-surveys/acs/summary_file/"$y"/data/5_year_by_state/"$STATE"_Tracts_Block_Groups_Only.zip\""
 echo "data/acs/acs"$y"_5yr.zip, data/acs/acs"$y"_5yr/g"$y"5"$STATE_INITIAL".txt <- [-timecheck method:wget_unzip]"
@@ -50,6 +51,6 @@ done)
 data/acs.csv <- input/acs/download.py, psql/acs2009_5yr, psql/acs2010_5yr, psql/acs2011_5yr, psql/acs2012_5yr, psql/acs2013_5yr
     $INPUT $OUTPUT
 
-%include $[PROFILE]
+%include $[ACS_PROFILE]
 psql/acs <- input/acs/import.py, data/acs.csv
     $INPUT $INPUT1 && touch $OUTPUT
