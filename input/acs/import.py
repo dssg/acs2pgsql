@@ -1,6 +1,6 @@
 #! /usr/bin/python
 import pandas as pd
-from drain import util
+import util
 import sys
 
 acs = pd.read_csv(sys.argv[1], dtype= {'census_tract_id':float})
