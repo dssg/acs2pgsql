@@ -5,18 +5,21 @@ import util
 import sys
 
 #sys.path.append('../Python_Scripts/')
-sys.path.append('../..')
+#sys.path.append('../..')
+#sys.path.append('../')
 
+#$bash cp config.py input/acs/
 from config import STATE
 from config import STATE_INITIAL
 from config import CITY_ID
 print (STATE, STATE_INITIAL, CITY_ID)
-
+#$bash cp config.py input/acs/
 
 #SQL Select Statement to Filter for Specified City
 statement = """
         select geoid, {fields} from acs{year}_5yr.{table}
         where geoid ~ """+"'"+CITY_ID+"'"
+
 
 print (statement)
 
@@ -24,10 +27,10 @@ def read_acs(table, columns, engine, offsets={0:{}}, years=range(2009, 2015)):
     try:
         select=statement
     except:
-        print "Error: Statement"
+        print ("Error: Statement")
         select = """
             select geoid, {fields} from acs{year}_5yr.{table}
-            where geoid ~ 'US47037'
+            where geoid ~ 'US48453'
         """
 
     column_names = ['geoid']
@@ -178,10 +181,11 @@ tenure_offsets = {
 tenure = read_acs(tenure_table, tenure_columns, engine, tenure_offsets)
 tenure_agg = aggregate(tenure, prefix='tenure', index=index)
 
-
+import pdb; pdb.set_trace()
 
 acs = tenure_agg.join((insurance_agg, health_agg, edu_agg, poverty_agg, race_agg, hispanic_agg), how='outer')
 acs.reset_index(inplace=True)
+print(acs.columns)
 acs['census_tract_id']=acs['geoid'].apply(lambda g: float(g[7:]))
 acs.drop('geoid', axis=1, inplace=True)
 acs.to_csv(sys.argv[1], index=False)

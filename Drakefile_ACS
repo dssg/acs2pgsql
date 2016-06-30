@@ -4,7 +4,7 @@ ACS_PROFILE:=acs_profile
 psql()
 	psql -v ON_ERROR_STOP=1 -f $[INPUT] && touch $[OUTPUT]
 
-psql/acs/build_directories_schemas <- build_directories_schemas.sh
+psql/build_directories_schemas <- build_directories_schemas.sh
 	bash $INPUT acs && touch $OUTPUT
 
 

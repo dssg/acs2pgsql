@@ -10,9 +10,9 @@
 
 #example
 
-state=Tennessee
-state_initial=tn
-city_geoid=US47037
+state=Texas
+state_initial=tx
+city_geoid=US48453 #Austin
 
 
 ##########################################################################
@@ -48,8 +48,7 @@ chmod +x input/acs/download.py
 chmod +x input/acs/census_postgres.sh
 
 
-#Setup Initial File Structure
-#mkdir input && cd input && mkdir acs || :
-
+#Copy Python Config
+cp config.py input/acs/
 
 echo "Setup complete...you are now clear to Drake."
