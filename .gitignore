@@ -1,0 +1,8 @@
+.*
+!.gitignore
+*.log
+data
+generated
+psql
+default_profile
+
