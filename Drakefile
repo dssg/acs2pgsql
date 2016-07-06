@@ -1,3 +1,7 @@
+; run input SQL file and touch output
+psql()
+    psql -v ON_ERROR_STOP=1 -f $INPUT && touch $OUTPUT
+
 ; drake method to download and unzip a zip file
 ; the URL of the zip the file should be in the URL variable
 ; the first output is the name of the downloaded zip file
