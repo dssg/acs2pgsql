@@ -1,0 +1,30 @@
+; drake method to download and unzip a zip file
+; the URL of the zip the file should be in the URL variable
+; the first output is the name of the downloaded zip file
+; the second output is the name of a file in the unzipped archive
+wget_unzip()
+    mkdir -p $(dirname $OUTPUT0)
+    wget --output-document="$OUTPUT0" "$URL"
+    unzip -o "$OUTPUT0" -d $(dirname $OUTPUT1)
+
+; American Community Survey data gets imported into its own db
+%include default_profile
+
+data/census-postgres/ <- [-timecheck]
+     git clone https://github.com/censusreporter/census-postgres.git $OUTPUT
+
+$(for y in {2009..2014}; do
+
+# download and unzip the acs tract and block group data
+echo "URL=\"http://www2.census.gov/programs-surveys/acs/summary_file/"$y"/data/5_year_by_state/Illinois_Tracts_Block_Groups_Only.zip\""
+echo "data/acs/acs"$y"_5yr.zip, data/acs/acs"$y"_5yr/g"$y"5il.txt <- [-timecheck method:wget_unzip]"
+
+# run our census_postgres.sh script to generate import scripts
+echo "input/acs/generated/acs"$y"_5yr/import.sql <- input/acs/census_postgres.sh, data/census-postgres/"
+echo "    \$INPUT0 \$INPUT1/acs"$y"_5yr/ data/acs/acs"$y"_5yr/ input/acs/generated/acs"$y"_5yr/"
+
+# run import scripts
+echo "psql/acs"$y"_5yr <- input/acs/generated/acs"$y"_5yr/import.sql, data/acs/acs"$y"_5yr/g"$y"5il.txt [method:psql]"
+
+done)
+
