@@ -16,6 +16,7 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
  STATE=Illinois
  STATE_ABBREV=il
  ```
+
 2. Change to the `acs2postgres` directory and run `drake`. 
 
 ## TODO

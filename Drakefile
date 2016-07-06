@@ -13,6 +13,8 @@ wget_unzip()
 
 ; American Community Survey data gets imported into its own db
 %include default_profile
+; the default location of sql success files
+SQL_DIR:=psql/
 
 data/census-postgres/ <- [-timecheck]
      git clone https://github.com/censusreporter/census-postgres.git $OUTPUT
