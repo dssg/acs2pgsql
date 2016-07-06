@@ -6,7 +6,7 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 - Run the workflow using [drake](https://github.com/factual/drake)
 
 ## Usage
-1. Clone the repository and create the file `acs2postgres/default_profile` by including PostgreSQL credentials and the desired U.S. State in the following template:
+1. Clone the repository and create the file `acs2postgres/default_profile` by specifying PostgreSQL credentials and the desired U.S. State in the following template:
  ```
  PGHOST=
  PGDATABASE=
