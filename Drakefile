@@ -25,7 +25,7 @@ echo "data/acs/acs"$y"_5yr.zip, data/acs/acs"$y"_5yr/g"$y"5$[STATE_ABBREV].txt <
 
 # run our postprocess.sh script to generate import scripts
 echo "generated/acs"$y"_5yr/import.sql <- postprocess.sh, data/census-postgres/"
-echo "    \$INPUT0 \$INPUT1/acs"$y"_5yr/ data/acs/acs"$y"_5yr/ generated/acs"$y"_5yr/"
+echo "    \$INPUT0 \$INPUT1/acs"$y"_5yr/ data/acs/acs"$y"_5yr/ generated/acs"$y"_5yr/ $[STATE_ABBREV]"
 
 # run import scripts
 echo "$[SQL_DIR]/acs"$y"_5yr <- generated/acs"$y"_5yr/import.sql, data/acs/acs"$y"_5yr/g"$y"5$[STATE_ABBREV].txt [method:psql]"
