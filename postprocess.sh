@@ -10,9 +10,9 @@ mkdir -p $out
 cp -r $src/* $out
 
 edir=$(echo $datadir/ | sed 's/\//\\\//g')
-grep 'group1/[em][0-9]*5"$state"' "$out"/import_sequences.sql | sed "s/'.*\/group1\//'"$edir"/g;s/COPY/\\\COPY/g" > "$out"/import_sequences_"$state".sql
+grep 'group1/[em][0-9]*5'$state "$out"/import_sequences.sql | sed "s/'.*\/group1\//'"$edir"/g;s/COPY/\\\COPY/g" > "$out"/import_sequences_"$state".sql
 
-grep 'g[0-9]*5"$state".txt' $out/import_geoheader.sql | head -n1 | sed "s/'.*\/\(g[0-9]*5"$state".txt\)/'"$edir\\1"/g;s/COPY/\\\COPY/g" > "$out"/import_geoheader_"$state".sql
+grep 'g[0-9]*5'$state'.txt' $out/import_geoheader.sql | head -n1 | sed "s/'.*\/\(g[0-9]*5"$state".txt\)/'"$edir\\1"/g;s/COPY/\\\COPY/g" > "$out"/import_geoheader_"$state".sql
 
 echo "
 drop schema if exists $schema cascade;
