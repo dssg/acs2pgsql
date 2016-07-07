@@ -21,4 +21,4 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 
 ## TODO
  - Expand to Decennial and ACS 1yr and 3yr
- - Allow multiple states
+ - Rename folders per state
