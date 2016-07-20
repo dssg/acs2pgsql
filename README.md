@@ -32,6 +32,10 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 
 2. Change to the `acs2postgres` directory and run `drake`.
 
+ ```
+ drake -w Drakefile
+ ```
+
 ## TODO
  - Expand to Decennial and ACS 1yr and 3yr
  - Rename folders per state
