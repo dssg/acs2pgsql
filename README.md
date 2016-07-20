@@ -12,12 +12,26 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
  PGDATABASE=
  PGUSER=
  PGPASSWORD=
- 
+
  STATE=Illinois
  STATE_ABBREV=il
  ```
 
-2. Change to the `acs2postgres` directory and run `drake`. 
+If the state is a compound name, such as North Carolina, this takes the following form:
+
+```
+PGHOST=
+PGDATABASE=
+PGUSER=
+PGPASSWORD=
+
+STATE=NorthCarolina
+STATE_ABBREV=nc
+```
+
+
+
+2. Change to the `acs2postgres` directory and run `drake`.
 
 ## TODO
  - Expand to Decennial and ACS 1yr and 3yr
