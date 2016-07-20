@@ -19,15 +19,15 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 
 If the state is a compound name, such as North Carolina, this takes the following form:
 
-```
-PGHOST=
-PGDATABASE=
-PGUSER=
-PGPASSWORD=
-
-STATE=NorthCarolina
-STATE_ABBREV=nc
-```
+ ```
+ PGHOST=
+ PGDATABASE=
+ PGUSER=
+ PGPASSWORD=
+ 
+ STATE=NorthCarolina
+ STATE_ABBREV=nc
+ ```
 
 
 
