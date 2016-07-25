@@ -2,7 +2,7 @@
 This repository imports American Community Survey (ACS) data into PostgreSQL. The hard work has already been done by [Census Reporter](https://github.com/censusreporter/census-postgres). We add the following features:
 
 - Make the state (e.g. Illinois, California) a variable
-- Fix issues with the 2009 ACS 5-year data
+- Fix [issues](https://github.com/censusreporter/census-postgres/issues?q=is%3Aissue%20is%3Aopen%202009) with the 2009 ACS 5-year data
 - Run the workflow using [drake](https://github.com/factual/drake)
 
 ## Usage
