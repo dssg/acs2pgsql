@@ -11,6 +11,9 @@ wget_unzip()
     wget --output-document="$OUTPUT0" "$URL"
     unzip -o "$OUTPUT0" -d $(dirname $OUTPUT1)
 
+shp2psql()
+	ogr2ogr -update -append -f PostgreSQL PG:"host=PGHOST user=PGUSER dbname=PGDATABASE password=PGPASSWORD" data/tl_2010_"$FIPS"_tract"$y"/tl_2010_"$FIPS"_tract"$y".shp -nlt MULTIPOLYGON25D -nln acs_tiger_shape.census_tract_20"$y" && mkdir -p $(dirname $OUTPUT) && touch $OUTPUT
+
 ; American Community Survey data gets imported into its own db
 %include default_profile
 ; the default location of sql success files
@@ -34,3 +37,15 @@ echo "$[SQL_DIR]/acs"$y"_5yr <- generated/acs"$y"_5yr/import.sql, data/acs/acs"$
 
 done)
 
+generated/tiger/tiger_schema.sql,generated/tiger/census_tract.sql <- postprocess_tiger.sh
+	$INPUT
+	
+$[SQL_DIR]tl_2010_$[FIPS]_tract_schema <- generated/tiger/tiger_schema.sql [method:psql]
+
+$(for y in 00 10; do
+echo "y="$y""
+echo "URL=\"http://www2.census.gov/geo/pvs/tiger2010st/"$[FIPS]"_"$[STATE]"/"$[FIPS]"/tl_2010_"$[FIPS]"_tract"$y".zip\""
+echo "data/tl_2010_"$[FIPS]"_tract"$y".zip, data/tl_2010_"$[FIPS]"_tract"$y"/tl_2010_"$[FIPS]"_tract"$y".shp <- [-timecheck method:wget_unzip]"
+echo ""$[SQL_DIR]"tl_2010_"$[FIPS]"_tract"$y" <- [-timecheck method:shp2psql]"
+done)
+$[SQL_DIR]tl_2010_$[FIPS]_tract <- generated/tiger/census_tract.sql [method:psql]
