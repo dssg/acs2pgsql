@@ -6,6 +6,9 @@ echo "
 CREATE SCHEMA IF NOT EXISTS ACS_TIGER_SHAPE;
 CREATE EXTENSION postgis;
 CREATE EXTENSION postgis_topology;
+DROP TABLE IF EXISTS acs_tiger_shape.census_tract_2010
+DROP TABLE IF EXISTS acs_tiger_shape.census_tract_2000
+DROP TABLE IF EXISTS acs_tiger_shape.census_tract
 " > generated/tiger/tiger_schema.sql
 
 echo "
