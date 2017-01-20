@@ -26,8 +26,8 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
  ```
 
 3. Consult the  [census-postgres](https://github.com/censusreporter/census-postgres) documentation for full technical details. See also the census documentation for each dataset, especially the:
- - Appendix (e.g. [2013](http://www2.census.gov/acs2013_5yr/summaryfile/ACS_2013_SF_5YR_Appendices.xls)) for information about census tables, and the
- - Sequence Number and Table Number Lookup (e.g. [2013](http://www2.census.gov/acs2013_5yr/summaryfile/Sequence_Number_and_Table_Number_Lookup.txt)) for information about variables.
+ - Appendix (e.g. [2015](http://www2.census.gov/programs-surveys/acs/summary_file/2015/documentation/tech_docs/ACS_2015_SF_5YR_Appendices.xls)) for information about census tables, and the
+ - Sequence Number and Table Number Lookup (e.g. [2015](http://www2.census.gov/programs-surveys/acs/summary_file/2015/documentation/user_tools/ACS_5yr_Seq_Table_Number_Lookup.txt)) for information about variables.
 
 ## TODO
  - Expand to Decennial and ACS 1yr and 3yr
