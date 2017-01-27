@@ -39,9 +39,6 @@ echo "$[SQL_DIR]/acs"$y"_5yr <- generated/acs"$y"_5yr/import.sql, data/acs/acs"$
 
 done)
 
-generated/tiger/tiger_schema.sql,generated/tiger/census_tract.sql <- postprocess_tiger.sh
-	$INPUT
-
 $[SQL_DIR]/tl_2010_tract_schema <- tiger_create.sql [method:psql]
 
 $(
