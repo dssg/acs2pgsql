@@ -50,8 +50,8 @@ echo "y="$y""
 echo "URL=\"http://www2.census.gov/geo/pvs/tiger2010st/"$FIPS"_"$[STATE]"/"$FIPS"/tl_2010_"$FIPS"_tract"$y".zip\""
 echo "data/tl_2010_"$FIPS"_tract"$y".zip, data/tl_2010_"$FIPS"_tract"$y"/tl_2010_"$FIPS"_tract"$y".shp <- [-timecheck method:wget_unzip]"
 
-echo "$[SQL_DIR]tl_2010_"$FIPS"_tract"$y" <- data/tl_2010_"$FIPS"_tract"$y"/tl_2010_"$FIPS"_tract"$y".shp [method:shp2psql]"
+echo "$[SQL_DIR]/tl_2010_"$FIPS"_tract"$y" <- data/tl_2010_"$FIPS"_tract"$y"/tl_2010_"$FIPS"_tract"$y".shp [method:shp2psql]"
 
 done
-echo "$[SQL_DIR]tl_2010_"$FIPS"_tract <- generated/tiger/census_tract.sql [method:psql]"
+echo "$[SQL_DIR]/tl_2010_"$FIPS"_tract <- generated/tiger/census_tract.sql [method:psql]"
 )
