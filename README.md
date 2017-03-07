@@ -1,4 +1,4 @@
-# acs2postgres
+# acs2pgsql
 This repository imports American Community Survey (ACS) data into PostgreSQL. The hard work has already been done by [Census Reporter](https://github.com/censusreporter/census-postgres). We add the following features:
 
 - Make the state (e.g. Illinois, California) a variable
@@ -6,7 +6,7 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 - Run the workflow using [drake](https://github.com/factual/drake)
 
 ## Usage
-1. Clone the repository and create the file `acs2postgres/default_profile` by specifying PostgreSQL credentials and the desired U.S. State in the following template:
+1. Clone the repository and create the file `acs2pgsql/default_profile` by specifying PostgreSQL credentials and the desired U.S. State in the following template:
  ```
  PGHOST=
  PGDATABASE=
@@ -19,7 +19,7 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 
  If the state name has multiple words, remove the space: e.g. for North Carolina use `STATE=NorthCarolina`.
 
-2. Change to the `acs2postgres` directory and run `drake`.
+2. Change to the `acs2pgsql` directory and run `drake`.
 
  ```
  drake -w Drakefile
