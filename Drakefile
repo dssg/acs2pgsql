@@ -24,7 +24,7 @@ SQL_DIR:=psql/
 data/census-postgres/ <- [-timecheck]
      git clone https://github.com/censusreporter/census-postgres.git $OUTPUT
 
-$(for y in {2009..2015}; do
+$(for y in {2009..2016}; do
 
 # download and unzip the acs tract and block group data
 echo "URL=\"http://www2.census.gov/programs-surveys/acs/summary_file/"$y"/data/5_year_by_state/$[STATE]_Tracts_Block_Groups_Only.zip\""
