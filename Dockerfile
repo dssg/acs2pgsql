@@ -19,9 +19,9 @@ RUN wget -O /bin/drake https://raw.githubusercontent.com/Factual/drake/3659c1167
     chmod 755 /bin/drake
 
 WORKDIR /
-RUN wget https://github.com/dssg/acs2pgsql/archive/kit_acs_2016.zip && \
-    unzip kit_acs_2016.zip
-COPY default_profile /acs2pgsql-kit_acs_2016/
+RUN wget https://github.com/dssg/acs2pgsql/archive/master.zip && \
+    unzip master.zip
+COPY default_profile /acs2pgsql-master/
 
-WORKDIR /acs2pgsql-kit_acs_2016
+WORKDIR /acs2pgsql-master
 ENTRYPOINT ["/bin/drake", "--auto"]
