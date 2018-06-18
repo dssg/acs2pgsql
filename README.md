@@ -19,7 +19,7 @@ This repository imports American Community Survey (ACS) data into PostgreSQL. Th
 
  If the state name has multiple words, remove the space: e.g. for North Carolina use `STATE=NorthCarolina`.
 
-2. Change to the `acs2pgsql` directory. To use docker, run `docker build -t "image_tag" .`. Docker will create an image and then extract, transform, and load the ACS data into your PostgreSQL database. To use drake, run `drake`.
+2. Change to the `acs2pgsql` directory. To use docker, run `docker build --rm -t "image_tag" .`. Docker will create an image and then extract, transform, and load the ACS data into your PostgreSQL database. To use drake, run `drake`.
 
 3. Consult the [census-postgres](https://github.com/censusreporter/census-postgres) documentation for full technical details. See also the census documentation for each dataset, especially the:
  - Appendix (e.g. [2015](http://www2.census.gov/programs-surveys/acs/summary_file/2015/documentation/tech_docs/ACS_2015_SF_5YR_Appendices.xls)) for information about census tables, and the
