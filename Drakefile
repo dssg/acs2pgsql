@@ -15,7 +15,7 @@ shp2psql()
 	ogr2ogr -f PostgreSQL PG:"host="$PGHOST" dbname="$PGDATABASE"" "$INPUT" -nlt MULTIPOLYGON25D -nln acs_tiger.census_tract_20"$y" && mkdir -p $(dirname $OUTPUT) && touch $OUTPUT
 
 ; American Community Survey data gets imported into its own db
-%include default_profile
+; %include default_profile
 
 
 ; the default location of sql success files
