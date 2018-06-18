@@ -22,5 +22,5 @@ WORKDIR /
 RUN wget https://github.com/dssg/acs2pgsql/archive/no_default_profile.tar.gz && \
     tar -zxf no_default_profile.tar.gz
 
-WORKDIR /acs2pgsql-no_default_profile
-ENTRYPOINT ["/bin/drake", "--auto"]
+#WORKDIR /acs2pgsql-no_default_profile
+#ENTRYPOINT ["/bin/drake", "--auto"]
